@@ -16,14 +16,14 @@ contract UniswapV2SingleHopSwap {
 
     function swapSingleHopExactAmountIn(uint256 amountIn, uint256 amountOutMin) external {
         /**
-        * This only works because msg.sender (the test contract) approved the funds to be moved by this contract.
-        * This happened in the unit test.
-        */
+         * This only works because msg.sender (the test contract) approved the funds to be moved by this contract.
+         * This happened in the unit test.
+         */
         weth.transferFrom(msg.sender, address(this), amountIn);
 
         /**
-        * Once the weth was transferred to this contract it can approve the router to move the funds on it's behalf.
-        */
+         * Once the weth was transferred to this contract it can approve the router to move the funds on it's behalf.
+         */
         weth.approve(address(router), amountIn);
 
         address[] memory paths = new address[](2);
@@ -31,8 +31,8 @@ contract UniswapV2SingleHopSwap {
         paths[1] = DAI;
 
         /**
-        * This swap ensures that all the 'amountIn' is consumed if it can reach the minimum threshold of the 'amountOutMin'.
-        */
+         * This swap ensures that all the 'amountIn' is consumed if it can reach the minimum threshold of the 'amountOutMin'.
+         */
         router.swapExactTokensForTokens(amountIn, amountOutMin, paths, msg.sender, block.timestamp);
     }
 
@@ -43,6 +43,9 @@ contract UniswapV2SingleHopSwap {
         address[] memory paths = new address[](2);
         paths[0] = WETH;
         paths[1] = DAI;
+        /**
+         * This swap ensures that all the 'amountOutDesired' is received if the 'amountInMax' is enough to cover the swap. The execution may not use all 'amountInMax'.
+         */
         uint256[] memory amounts =
             router.swapTokensForExactTokens(amountOutDesired, amountInMax, paths, msg.sender, block.timestamp);
 
