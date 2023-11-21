@@ -23,6 +23,22 @@ library ISwapRouter {
         uint256 amountInMaximum;
         uint160 sqrtPriceLimitX96;
     }
+
+    struct ExactInputParams {
+        bytes path;
+        address recipient;
+        uint256 deadline;
+        uint256 amountIn;
+        uint256 amountOutMinimum;
+    }
+
+    struct ExactOutputParams {
+        bytes path;
+        address recipient;
+        uint256 deadline;
+        uint256 amountOut;
+        uint256 amountInMaximum;
+    }
 }
 
 interface IUniswapV3Router {
@@ -34,4 +50,6 @@ interface IUniswapV3Router {
         external
         payable
         returns (uint256 amountIn);
+    function exactInput(ISwapRouter.ExactInputParams calldata params) external payable returns (uint256 amountOut);
+    function exactOutput(ISwapRouter.ExactOutputParams calldata params) external payable returns (uint256 amountIn);
 }

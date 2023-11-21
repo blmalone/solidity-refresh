@@ -1,4 +1,5 @@
 ## Solidity Refresh
 
-- Uniswap v2 swaps
-- Uniswap v3 swaps
+- Uniswap v2 single-hop swaps
+- Uniswap v3 single-hop swaps
+- Uniswap v3 multi-hop swaps
